@@ -8,6 +8,15 @@ input{
 	border-radius: 3px;
 	background: #FFFBCF;
 }
+a{
+	color: #9F5000;
+	border: 0px;
+	text-decoration: initial;
+}
+a:hover{
+	color: #642100;
+	background: #FFAF60;
+}
 button{
 	border: 1px solid brown;
 	background: #D94600;
@@ -85,7 +94,7 @@ button:hover{
 	line-height: 30px;
 }
 .sys-items{
-	height: 570px;
+	height: 535px;
 	overflow-y: auto;
 }
 .sys-item{
@@ -116,6 +125,6 @@ button:hover{
 }
 
 .mes-messages{
-	height: 620px;
+	height: 600px;
 	overflow-y: auto;
 }

@@ -77,6 +77,14 @@ function updopmode(){
 	else $("mes-operationmode").innerHTML="切换为反向模式";
 }
 
+var messages=[],cntmes=0;
+function updatemessages(){
+	var html="";
+	for(var i=cntmes-1;i>=0;i--)
+		html=html+"<div>"+messages[i]+"</div>";
+	$("mes-messages").innerHTML=html;
+}
+
 var game_score,game_wave,game_blood,game_limit;
 function gameend(){
 	$("mes-starter-button").innerHTML="开始";
@@ -138,18 +146,30 @@ function initmapval(bombcount){
 }
 
 function itemwork(op,x,y,item,lv){
-	return "可还行";
+	if(item==1){
+		map[x][y][1]=0;
+		map[x][y][2]=0;
+		if(x>0)updateblock(x-1,y);
+		if(y>0)updateblock(x,y-1);
+		if(x<mapsize-1)updateblock(x+1,y);
+		if(y<mapsize-1)updateblock(x,y+1);
+		if(x>0&&y>0)updateblock(x-1,y-1);
+		if(x>0&&y<mapsize-1)updateblock(x-1,y+1);
+		if(x<mapsize-1&&y>0)updateblock(x+1,y-1);
+		if(x<mapsize-1&&y<mapsize-1)updateblock(x+1,y+1);
+	}
+	return "hank AK IOI";
 }
 function work(x,y){
 	if(getvalue("gm-mg-ingame")!="yes")return;
 	if(map[x][y][0]==2)return;
 	if(map[x][y][1]>0){
-		var message="触发 “"+itemname[map[x][y][1]]+"”（坐标 "+String(x)+","+String(y)+" 等级 "+String(map[x][y][2])+"）：";
+		var message="触发 ["+itemname[map[x][y][1]]+"]（坐标 "+String(x)+","+String(y)+" 等级 "+String(map[x][y][2])+"）：";
 		message=message+itemwork(opmode,x,y,map[x][y][1],map[x][y][2]);
+		messages[cntmes]=message,cntmes=cntmes+1;
+		updatemessages();
 	}
 	map[x][y][0]=2;
-	map[x][y][1]=0;
-	map[x][y][2]=0;
 	updateblock(x,y);
 }
 
