@@ -1,0 +1,121 @@
+body{
+	text-align: center;
+	background: #FFF9BF;
+}
+input{
+	width: 80px;
+	border: 1px solid brown;
+	border-radius: 3px;
+	background: #FFFBCF;
+}
+button{
+	border: 1px solid brown;
+	background: #D94600;
+	border-radius: 3px;
+	color: white;
+}
+button:hover{
+	background: #842B00;
+}
+
+.color-0{
+	--sys-item-color: #D0D0D0;
+	--sys-item-hover: #ADADAD;
+}
+.color-1{
+	--sys-item-color: #FF5151;
+	--sys-item-hover: #EA0000;
+}
+.color-2{
+	--sys-item-color: #FF9224;
+	--sys-item-hover: #D26900;
+}
+.color-3{
+	--sys-item-color: #FFDC35;
+	--sys-item-hover: #EAC100;
+}
+.color-4{
+	--sys-item-color: #00EC00;
+	--sys-item-hover: #00BB00;
+}
+.color-5{
+	--sys-item-color: #46A3FF;
+	--sys-item-hover: #0072E3;
+}
+.color-6{
+	--sys-item-color: #9F35FF;
+	--sys-item-hover: #6F00D2;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #FFF297;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
+.main-sys{
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 300px;
+}
+.main-map{
+	position: absolute;
+	left: 340px;
+	top: 20px;
+}
+.main-mes{
+	position: absolute;
+	left: 1050px;
+	top: 20px;
+	width: 500px;
+	text-align: left;
+}
+
+.sys-datas{
+	display: inline;
+	width: 20%;
+	float: left;
+	line-height: 30px;
+}
+.sys-items{
+	height: 570px;
+	overflow-y: auto;
+}
+.sys-item{
+	background: var(--sys-item-color);
+}
+.sys-item:hover{
+	background: var(--sys-item-hover);
+}
+.sys-item-pic{
+	display: inline;
+	float: left;
+	width: 30px;
+	height: 30px;
+}
+.sys-item-count{
+	text-align: left;
+	display: inline;
+	float: left;
+	width: 50px;
+	height: 30px;
+}
+
+.map-block{
+	width: 20px;
+	height: 20px;
+	background: orange;
+	cursor: pointer;
+}
+
+.mes-messages{
+	height: 620px;
+	overflow-y: auto;
+}
