@@ -131,7 +131,30 @@ function updateblock(x,y){
 		$("block-"+String(x)+"-"+String(y)).innerHTML='<img src="image/number/'+String(total)+'.png" style="width: 20px; height: 20px;">';
 	}
 }
-function initmapval(bombcount){
+function makenewblock(item,lv){
+	var cnt=0;
+	for(var i=0;i<mapsize*mapsize;i++)
+		if(map[Math.floor(i/mapsize)][i%mapsize][1]==0)cnt++;
+	var r=getrand(0,cnt),x=0,y=0;
+	for(var i=0;i<r;i++){
+		y++;
+		if(y==mapsize)y=0,x++;
+		while(map[x][y][1]>0){
+			y++;
+			if(y==mapsize)y=0,x++;
+		}
+	}
+	map[x][y][1]=item,map[x][y][2]=lv;
+	if(x>0)updateblock(x-1,y);
+	if(y>0)updateblock(x,y-1);
+	if(x<mapsize-1)updateblock(x+1,y);
+	if(y<mapsize-1)updateblock(x,y+1);
+	if(x>0&&y>0)updateblock(x-1,y-1);
+	if(x>0&&y<mapsize-1)updateblock(x-1,y+1);
+	if(x<mapsize-1&&y>0)updateblock(x+1,y-1);
+	if(x<mapsize-1&&y<mapsize-1)updateblock(x+1,y+1);
+}
+function initmapval(wave){
 	map=new Array();
 	for(var i=0;i<mapsize;i++){
 		map[i]=new Array();
@@ -141,11 +164,8 @@ function initmapval(bombcount){
 				map[i][j][k]=0;
 		}
 	}
-	for(var i=0;i<bombcount;i++){
-		var x=getrand(0,mapsize),y=getrand(0,mapsize);
-		while(map[x][y][1]==1)x=getrand(0,mapsize),y=getrand(0,mapsize);
-		map[x][y][1]=1;
-	}
+	for(var i=0;i<25;i++)
+		makenewblock(1,getrand(0,7));
 	for(var i=0;i<mapsize;i++)
 		for(var j=0;j<mapsize;j++)
 			updateblock(i,j);
@@ -166,8 +186,10 @@ function itemwork(op,x,y,item,lv){
 		if(x>0&&y<mapsize-1)updateblock(x-1,y+1);
 		if(x<mapsize-1&&y>0)updateblock(x+1,y-1);
 		if(x<mapsize-1&&y<mapsize-1)updateblock(x+1,y+1);
+		if(op==0)return "你受到 "+String(datas[item][1][lv])+" 点伤害。";
+		else return "你获得 "+String(datas[item][2][lv])+" 分。";
 	}
-	return "hank AK IOI";
+	return null
 }
 function work(x,y){
 	if(getvalue("gm-mg-ingame")!="yes")return;
@@ -191,7 +213,7 @@ function gamestart(){
 	updatesysdata();
 	messages=new Array(),cntmes=0;
 	updatemessages();
-	initmapval(25);
+	initmapval(game_wave);
 }
 function startgame(){
 	if(getvalue("gm-mg-ingame")=="yes"){
