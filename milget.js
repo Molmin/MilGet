@@ -1,3 +1,9 @@
+var datas=[
+	[[]],
+	[[100,200,300,400,500,600,700],
+	 [10,18,30,50,72,108,295],
+	 [5,10,20,40,80,160,320]]
+];
 function $(x){
 	return document.getElementById(x);
 }
@@ -147,6 +153,9 @@ function initmapval(bombcount){
 
 function itemwork(op,x,y,item,lv){
 	if(item==1){
+		if(op==0)game_blood=game_blood-datas[item][1][lv];
+		else game_score=game_score+datas[item][2][lv];
+		updatesysdata();
 		map[x][y][1]=0;
 		map[x][y][2]=0;
 		if(x>0)updateblock(x-1,y);
@@ -180,13 +189,18 @@ function gamestart(){
 	game_score=0;
 	game_limit=game_blood=100;
 	updatesysdata();
+	messages=new Array(),cntmes=0;
+	updatemessages();
 	initmapval(25);
 }
 function startgame(){
-	if(getvalue("gm-mg-ingame")=="yes")
+	if(getvalue("gm-mg-ingame")=="yes"){
 		setvalue("gm-mg-wavesum",String(Number(getvalue("gm-mg-wavesum"))+Number(getvalue("gm-mg-ingame-wave")))),
 		setvalue("gm-mg-gamesTotal",String(Number(getvalue("gm-mg-gamesTotal"))+1)),
 		setvalue("gm-mg-ingame","no");
+		if(Number(getvalue("gm-mg-maxScore"))<game_score)
+			setvalue("gm-mg-maxScore",String(game_score)),$("sys-maxscore").innerHTML=getvalue("gm-mg-maxScore");;
+	}
 	var maxwave=Math.floor(Number(getvalue("gm-mg-wavesum"))/Number(getvalue("gm-mg-gamesTotal"))/2.0);
 	if(getvalue("gm-mg-gamesTotal")=="0"||getvalue("gm-mg-wavesum")=="0")maxwave=1;
 	var inputwave=$("mes-starter-wave").value;
