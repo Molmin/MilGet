@@ -2,7 +2,9 @@ var datas=[
 	[[]],
 	[[100,200,300,400,500,600,700],
 	 [10,18,30,50,72,108,295],
-	 [5,10,20,40,80,160,320]]
+	 [5,10,20,40,80,160,320]],
+	[[8,11,14,17,20,23,26],
+	 [4,6,8,11,14,18,24]]
 ];
 function $(x){
 	return document.getElementById(x);
@@ -189,7 +191,25 @@ function itemwork(op,x,y,item,lv){
 		if(op==0)return "你受到 "+String(datas[item][1][lv])+" 点伤害。";
 		else return "你获得 "+String(datas[item][2][lv])+" 分。";
 	}
-	return null
+	if(item==2){
+		return "王歔源no歔歔";
+		if(op==0)game_blood=game_blood-datas[item][1][lv];
+		else game_score=game_score+datas[item][2][lv];
+		updatesysdata();
+		map[x][y][1]=0;
+		map[x][y][2]=0;
+		if(x>0)updateblock(x-1,y);
+		if(y>0)updateblock(x,y-1);
+		if(x<mapsize-1)updateblock(x+1,y);
+		if(y<mapsize-1)updateblock(x,y+1);
+		if(x>0&&y>0)updateblock(x-1,y-1);
+		if(x>0&&y<mapsize-1)updateblock(x-1,y+1);
+		if(x<mapsize-1&&y>0)updateblock(x+1,y-1);
+		if(x<mapsize-1&&y<mapsize-1)updateblock(x+1,y+1);
+		if(op==0)return "你受到 "+String(datas[item][1][lv])+" 点伤害。";
+		else return "你获得 "+String(datas[item][2][lv])+" 分。";
+	}
+	return null;
 }
 function work(x,y){
 	if(getvalue("gm-mg-ingame")!="yes")return;
